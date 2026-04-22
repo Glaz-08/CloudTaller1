@@ -1,37 +1,33 @@
-# Build stage
-FROM node:18-alpine AS builder
+# syntax=docker/dockerfile:1
+
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copiar package.json
+# Instala dependencias
 COPY package*.json ./
+RUN npm install --no-audit --no-fund
 
-# Instalar dependencias
-RUN npm install
-
-# Copiar código fuente
-COPY src ./src
-COPY tsconfig.json ./
-
-# Compilar TypeScript
+# Copia el proyecto y compila
+COPY . .
 RUN npm run build
 
-# Runtime stage
-FROM node:18-alpine
+
+FROM node:22-alpine AS runtime
 
 WORKDIR /app
+ENV NODE_ENV=production
 
-# Copiar package.json
+# Instala solo dependencias de producción
 COPY package*.json ./
+RUN npm install --production --no-audit --no-fund && npm cache clean --force
 
-# Instalar solo dependencias de producción
-RUN npm ci --only=production
-
-# Copiar código compilado desde builder
+# Copia solo lo necesario
 COPY --from=builder /app/dist ./dist
 
-# Exponer puerto
+# Ejecuta como usuario no root
+USER node
+
 EXPOSE 3000
 
-# Comando de inicio
 CMD ["npm", "start"]
