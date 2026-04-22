@@ -1,6 +1,8 @@
 # CloudTaller API
 
-API simple construida con NestJS que implementa 3 endpoints para un taller. Backend con validación integrada y frontend React con Tailwind CSS.
+API simple
+video en youtube: https://youtu.be/lHnYUbFzbMQ 
+
 
 ## Endpoints
 
@@ -50,28 +52,6 @@ curl -X POST http://localhost:3000/ \
   "frase": "Juan tiene 25 años, y 25 dividido por 5 es 5.00",
   "calculo": 5
 }
-```
-
-## Estructura del Proyecto
-
-```
-.
-├── src/                    # Backend NestJS
-│   ├── main.ts            # Punto de entrada
-│   ├── app.module.ts      # Módulo principal
-│   ├── app.controller.ts  # Controladores de rutas
-│   ├── app.service.ts     # Lógica de negocio
-│   └── info.dto.ts        # DTO con validación
-├── dist/                  # Build compilado
-├── frontend/              # Frontend React + Tailwind
-│   ├── src/
-│   │   ├── App.tsx        # Componente principal
-│   │   ├── main.tsx       # Punto de entrada
-│   │   └── index.css      # Estilos Tailwind
-│   └── index.html         # HTML principal
-└── package.json
-```
-
 ## Instalación y Ejecución
 
 ### Requisitos
